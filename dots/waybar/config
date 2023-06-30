@@ -1,0 +1,207 @@
+[{
+    //"include": "~/.config/waybar/custom_modules/modules",
+    "height": 20,
+    "layer": "top",
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-bottom": 0,
+    "margin-right": 0,
+    "spacing": 3,
+   
+    // Choose the order of the modules
+
+    "modules-left": [
+      "custom/menu",
+      "tray",
+      "wlr/workspaces",
+      "custom/media"
+     ],
+
+    "modules-center": [
+      "clock"
+     ],
+
+    "modules-right": [
+      "backlight",
+      "pulseaudio",
+      "battery",
+      "bluetooth",
+      "network",
+      "custom/notification"
+     ],
+
+    "wlr/workspaces": {
+    	"format": "{icon}",
+   	 "on-click": "activate",
+   	 "all-outputs": true,
+   	 "sort-by-number": true,
+   	 "format-icons": {
+    	 "1": "一",
+         "2": "二",
+	 "3": "三",
+     	 "4": "四",
+     	 "5": "五",
+     	 "6": "六",
+         "7": "七",
+         "8": "八",
+         "9": "九",
+        "10": "十",
+        "focused": "",
+        "default": ""
+    },
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+  },
+
+    "clock": {
+        "format":"<b> {:%OI:%M %p}</b>",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "<b>{:%a %d, %b | %H:%M}</b>"
+    },
+
+     "battery": {
+        "states": {
+            // "good": 93,
+            "warning": 25,
+            "critical": 10,
+        },
+        "format": "{capacity}% {icon} ",
+        "format-charging": "{capacity}% 󰂄",
+        "format-plugged": " {capacity}%  ",
+        "format-alt": "{time} {icon} ",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{essid}  ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+
+    "pulseaudio": {
+    "format": "{icon} {volume}% | {format_source}%",
+    /*"format": "{icon} {volume}",*/
+    /*"format": "{icon}",*/
+    "format-muted": "󰖁 Mute",
+    "format-bluetooth": " {volume}% | {format_source}%",
+    "format-bluetooth-muted": "    Mute",
+    "format-source": " {volume}",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["󰕾", "󰕾", "󰕾"]
+    },
+    "scroll-step": 5.0,
+    "on-click": "amixer -q sset Master toggle",
+    "on-click-right": "pavucontrol",
+    "on-scroll-up": "amixer -q sset Master 5%+",
+    "on-scroll-down": "amixer -q sset Master 5%-",
+    "smooth-scrolling-threshold": 1,
+  },
+
+    "bluetooth": {
+    "format": "<b> 󰂳 </b>",
+    "format-connected": "<b>󰂯 {device_alias}</b>",
+    "format-disabled": "<b>󰂲</b>",
+    "interval": 30,
+    "on-click" : "blueman-manager",    //"bash ~/.config/waybar/scripts/rofi-bluetooth",
+    "tooltip": false,
+	
+  },
+
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+	    "spotify": " ",
+            "default": "🎜 "
+        },
+
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+
+    },
+
+    "custom/spotify": {
+    	"format": "{icon} {}",
+	"return-type": "json",
+	"max-lenght": 40,
+	"format-icons": {
+		"spotify": " "
+		},
+	"escape": true,
+	"exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"
+    },
+
+    "custom/menu": {
+        "format": "",
+	"on-click": "bash ~/.config/waybar/launcher/launcher.sh",
+	"on-click-right": "bash ~/.config/waybar/powermenu/powermenu.sh",
+	"tooltip": false,
+    },
+
+    "cpu": {
+        "format": " {usage}%  ",
+        "tooltip": false,
+        "on-click": "btop"
+    },
+
+    "memory": {
+        "icon-size": 18,
+        "format": " {}% 󰍛 "
+    },
+
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon} ",
+        "format": "{temperatureC}°C{icon}",
+        "format-icons": [" 󰏈 ", "  ", "  "]
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon}  {percent}%",
+        "format-alt-click": "click-right",
+        "format-alt": "{icon}",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl s +5%",
+        "on-scroll-down": "brightnessctl s 5%-"
+    },
+
+    "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+
+}]
