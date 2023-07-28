@@ -19,7 +19,7 @@ Hyprland dot files
 + Meta + A: Waybar (starts waybar if not automatically starts or error in config)
 + Meta + E: Nautilus
 + Meta + R: App Launcher
-+ Meta + X: Powermenu (NOTE: Logout  button not working)
++ Meta + X: Powermenu
 + Meta + F: Firefox
 + Meta + C: Killactive
 + Meta + J: toggle split
@@ -27,3 +27,5 @@ Hyprland dot files
 + Meta + G: Screenshot
 + Meta + L: Decrease Brightness
 + Meta + K: Increase Brightness
+---
+Rework IN Progress
